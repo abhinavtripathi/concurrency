@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * A class that holds a set of {@link User}s and a set of {@link Query}s. It
+ * also provides methods for addition/removal of users and queries, which use
+ * lock splitting technique as well as those which do not.
+ * 
  * @author Abhinav Tripathi
  */
 public class ServerStatus {
@@ -56,6 +60,11 @@ public class ServerStatus {
 		}
 	}
 
+	/**
+	 * A simple class representing a user.
+	 * 
+	 * @author abhinav
+	 */
 	public class User {
 		private final String name;
 		private final int age;
@@ -101,6 +110,11 @@ public class ServerStatus {
 		}
 	}
 
+	/**
+	 * A simple class representing a query.
+	 * 
+	 * @author abhinav
+	 */
 	public class Query {
 		private final String query;
 

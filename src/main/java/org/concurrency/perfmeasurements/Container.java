@@ -12,8 +12,10 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 /**
- * @author Abhinav Tripathi
+ * A {@link Directory} that provides methods that use reduced lock scope as well
+ * as those that do not, while mutating the shared resource.
  * 
+ * @author Abhinav Tripathi
  */
 public class Container implements Directory {
 
@@ -59,7 +61,8 @@ public class Container implements Directory {
 		Directory slowContainer = new SlowContainer(numThreads);
 		long ts1 = System.nanoTime();
 		for (int i = 0; i < numThreads; i++) {
-			new Thread(((Container) slowContainer).new Worker(slowContainer, ((Container) slowContainer).getGate())).start();
+			new Thread(((Container) slowContainer).new Worker(slowContainer, ((Container) slowContainer).getGate()))
+					.start();
 		}
 		((Container) slowContainer).getGate().await();
 		long ts2 = System.nanoTime();
@@ -67,7 +70,8 @@ public class Container implements Directory {
 		Directory fastContainer = new FastContainer(numThreads);
 		long ts3 = System.nanoTime();
 		for (int i = 0; i < numThreads; i++) {
-			new Thread(((Container) fastContainer).new Worker(fastContainer, ((Container) fastContainer).getGate())).start();
+			new Thread(((Container) fastContainer).new Worker(fastContainer, ((Container) fastContainer).getGate()))
+					.start();
 		}
 		((Container) fastContainer).getGate().await();
 		long ts4 = System.nanoTime();

@@ -1,6 +1,10 @@
 package org.concurrency.perfmeasurements;
 
-public class FastContainer extends Container implements Directory {
+/**
+ * A {@link Container} that provides fast operations.
+ * @author abhinav
+ */
+public class FastContainer extends Container {
 
 	public FastContainer(int numThreads) {
 		super(numThreads);
