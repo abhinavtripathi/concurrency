@@ -20,4 +20,17 @@ public class LockingBasedCounter {
 		return ++count;
 	}
 
+	/**
+	 * Calculates the time taken for incrementing the counter.
+	 * 
+	 * @return the time taken
+	 */
+	public synchronized long timedIncrement() {
+		long t1 = System.nanoTime();
+		++count;
+		long t2 = System.nanoTime();
+
+		return t2 - t1;
+	}
+
 }

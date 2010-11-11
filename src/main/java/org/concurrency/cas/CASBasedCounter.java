@@ -23,4 +23,17 @@ public class CASBasedCounter {
 		return count.incrementAndGet();
 	}
 
+	/**
+	 * Calculates the time taken for incrementing the counter.
+	 * 
+	 * @return the time taken
+	 */
+	public long timedIncrement() {
+		long t1 = System.nanoTime();
+		count.incrementAndGet();
+		long t2 = System.nanoTime();
+
+		return t2 - t1;
+	}
+
 }
