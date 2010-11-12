@@ -27,6 +27,10 @@ public class NumberRangeTest {
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Tests for the invalid construction of the {@link NumberRange}, this may
+	 * take some time though.
+	 */
 	@Test(expected = IllegalStateException.class)
 	public void testInvalidNumberRange() {
 		int numThreads = 4;
@@ -43,19 +47,22 @@ public class NumberRangeTest {
 						} catch (IllegalArgumentException e) {
 							logger.info("Thread tried to set wrong number range, was caught!");
 						}
-						try {
-							Thread.sleep(500);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						// try {
+						// Thread.sleep(new Random().nextInt(1000));
+						// } catch (InterruptedException e) {
+						// e.printStackTrace();
+						// }
 					}
 				}
 
 			}).start();
 		}
 		while (true) {
-			if (numberRange.getRangeWidth() < 0)
-				throw new IllegalStateException("Number range exists in invalid state");
+			NumberRange.Pair invalidRange = numberRange.getInvalidRange();
+			if (invalidRange != null) {
+				logger.info("*** Number range exists in invalid state! lower=" + invalidRange.min + ", upper=" + invalidRange.max + " ***");
+				throw new IllegalStateException("Number range exists in invalid state!");
+			}
 		}
 	}
 
